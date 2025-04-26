@@ -1,4 +1,4 @@
-<div class="p-6">
+<div>
     @include('components.alert')
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
@@ -110,7 +110,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @if ($product->gambar)
                                     <img src="{{ asset('storage/' . $product->gambar) }}" alt="{{ $product->nama }}"
-                                        class="h-10 w-10 rounded-lg object-cover">
+                                        class="h-10 w-10 rounded-lg object-cover" loading="lazy">
                                 @else
                                     <div class="h-10 w-10 rounded-lg bg-neutral-200 flex items-center justify-center">
                                         <svg class="h-6 w-6 text-neutral-400" fill="none" stroke="currentColor"

@@ -16,6 +16,11 @@ class LaporanPenjualan extends Model
         'dibuat_oleh',
     ];
 
+    protected $casts = [
+        'tanggal_awal' => 'date',
+        'tanggal_akhir' => 'date',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class, 'dibuat_oleh');

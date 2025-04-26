@@ -7,6 +7,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KasirController;
 use App\Http\Controllers\SupplierController;
+use App\Models\Penjualan;
 use Illuminate\Support\Facades\Route;
 
 
@@ -48,8 +49,13 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/suppliers/{report}/print', [ReportController::class, 'suppliersPrint'])->name('laporan.supplier.print');
 
 
-
             Route::get('/sales', [ReportController::class, 'sales'])->name('reports.sales');
+            Route::get('/sales/{reportId}', [ReportController::class, 'salesShow'])->name('laporan.sales.show');
+            Route::get('/sales/{report}/print', [ReportController::class, 'salesPrint'])->name('laporan.sales.print');
+
+
+
+
             Route::get('/stocks', [ReportController::class, 'stocks'])->name('reports.stocks');
             Route::get('/profits', [ReportController::class, 'profits'])->name('reports.profits');
         });
@@ -59,6 +65,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kasir', [KasirController::class, 'index'])->name('kasir');
         Route::post('/kasir/add-item', [KasirController::class, 'addItem'])->name('kasir.add-item');
     });
+
+    Route::get('/print/sale/{penjualan}', function (Penjualan $penjualan) {
+        return view('print.penjualan', compact('penjualan'));
+    })->name('print.sale');
 });
 
 require __DIR__ . '/auth.php';

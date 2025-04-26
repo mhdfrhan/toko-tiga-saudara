@@ -1,8 +1,9 @@
 <div>
+    @include('components.alert')
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
-            <h1 class="text-2xl font-semibold text-neutral-900">Laporan Supplier</h1>
-            <p class="mt-1 text-sm text-neutral-600">Rekap transaksi per supplier</p>
+            <h1 class="text-2xl font-semibold text-neutral-900">Laporan Penjualan</h1>
+            <p class="mt-1 text-sm text-neutral-600">Rekap transaksi penjualan</p>
         </div>
         <div class="flex flex-col sm:flex-row gap-3">
             <x-button x-data="" x-on:click="$dispatch('open-modal', 'report-modal')" wire:click="$set('showModal', true)">
@@ -22,17 +23,8 @@
                     wire:model.live.debounce.300ms="search" 
                     type="text" 
                     class="w-full"
-                    placeholder="Cari supplier..." 
+                    placeholder="Cari laporan..." 
                 />
-            </div>
-            <div class="flex-1">
-                <label class="block text-sm font-medium text-neutral-700 mb-1">Supplier</label>
-                <x-select wire:model.live="supplier" class="w-full">
-                    <option value="">Semua Supplier</option>
-                    @foreach($suppliers as $s)
-                        <option value="{{ $s->id }}">{{ $s->nama }}</option>
-                    @endforeach
-                </x-select>
             </div>
             <div class="flex-1">
                 <label class="block text-sm font-medium text-neutral-700 mb-1">Rentang Tanggal</label>
@@ -55,10 +47,10 @@
         <table class="min-w-full divide-y divide-neutral-200">
             <thead class="bg-neutral-50">
                 <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase">Supplier</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase">Periode</th>
                     <th class="px-6 py-3 text-center text-xs font-medium text-neutral-500 uppercase">Total Transaksi</th>
-                    <th class="px-6 py-3 text-right text-xs font-medium text-neutral-500 uppercase">Total Nominal</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-neutral-500 uppercase">Total Penjualan</th>
+                    <th class="px-6 py-3 text-right text-xs font-medium text-neutral-500 uppercase">Total Laba Kotor</th>
                     <th class="px-6 py-3 text-center text-xs font-medium text-neutral-500 uppercase">Dibuat Oleh</th>
                     <th class="px-6 py-3 text-center text-xs font-medium text-neutral-500 uppercase">Aksi</th>
                 </tr>
@@ -66,17 +58,19 @@
             <tbody class="bg-white divide-y divide-neutral-200">
                 @forelse($reports as $report)
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm">{{ $report->supplier->nama }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm">
                             {{ $report->tanggal_awal->format('d/m/Y') }} - {{ $report->tanggal_akhir->format('d/m/Y') }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-center">{{ $report->total_transaksi }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-right">
-                            Rp {{ number_format($report->total_nominal, 0, ',', '.') }}
+                            Rp {{ number_format($report->total_penjualan, 0, ',', '.') }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-right">
+                            Rp {{ number_format($report->total_laba_kotor, 0, ',', '.') }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-center">{{ $report->user->name }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
-                            <a href="{{ route('laporan.supplier.show', $report) }}" 
+                            <a href="{{ route('laporan.sales.show', $report) }}" 
                                 class="text-indigo-600 hover:text-indigo-900">
                                 Detail
                             </a>
@@ -102,21 +96,10 @@
     <x-modal name="report-modal" :show="$showModal" maxWidth="md">
         <form wire:submit="generateReport" class="p-6">
             <h2 class="text-lg font-medium text-neutral-900">
-                Buat Laporan Supplier
+                Buat Laporan Penjualan
             </h2>
 
             <div class="mt-6 space-y-6">
-                <div>
-                    <x-input-label for="supplier" value="Supplier" />
-                    <x-select wire:model="form.supplier_id" id="supplier" class="mt-1 block w-full">
-                        <option value="">Pilih Supplier</option>
-                        @foreach($suppliers as $supplier)
-                            <option value="{{ $supplier->id }}">{{ $supplier->nama }}</option>
-                        @endforeach
-                    </x-select>
-                    <x-input-error :messages="$errors->get('form.supplier_id')" class="mt-2" />
-                </div>
-
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <x-input-label for="tanggal_awal" value="Tanggal Awal" />

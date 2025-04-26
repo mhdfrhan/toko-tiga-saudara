@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('penjualan', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->string('kode_struk')->unique();
+            $table->string('nomor')->unique();
             $table->dateTime('tanggal');
-            $table->decimal('total_harga', 12, 2);
-            $table->decimal('bayar', 12, 2);
+            $table->decimal('total', 12, 2);
+            $table->string('metode_pembayaran');
+            $table->decimal('jumlah_bayar', 12, 2);
             $table->decimal('kembalian', 12, 2);
+            $table->foreignId('user_id')->constrained()->onDelete('restrict');
             $table->timestamps();
         });
     }

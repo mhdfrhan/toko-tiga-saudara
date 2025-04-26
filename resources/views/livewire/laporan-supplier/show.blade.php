@@ -1,4 +1,4 @@
-<div class="p-6">
+<div>
     <!-- Header Section -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>

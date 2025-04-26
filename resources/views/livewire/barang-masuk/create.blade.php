@@ -1,5 +1,4 @@
-<!-- filepath: d:\Herd\tiga-saudara\resources\views\livewire\barang-masuk\create.blade.php -->
-<div class="p-6">
+<div>
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div>
             <h1 class="text-2xl font-semibold text-neutral-900">Tambah Barang Masuk</h1>
