@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('harga_beli', 10, 2);
             $table->decimal('harga_jual', 10, 2);
             $table->integer('stok')->default(0);
+            $table->integer('min_stok')->default(10)->after('stok');
             $table->timestamps();
         });
     }

@@ -115,8 +115,14 @@ class Index extends Component
                 throw new \Exception('Keranjang kosong');
             }
 
-            if ($this->paymentMethod === 'cash' && $this->paymentAmount < $this->total) {
-                throw new \Exception('Jumlah pembayaran kurang');
+            if ($this->paymentMethod === 'cash') {
+                if ($this->paymentAmount < $this->total) {
+                    $this->dispatch('notify', message: 'Jumlah bayar tidak cukup', type: 'error');
+                    return;
+                }
+            } else {
+                $this->paymentAmount = $this->total;
+                $this->change = 0;
             }
 
             $getLastId = Penjualan::latest()->first();

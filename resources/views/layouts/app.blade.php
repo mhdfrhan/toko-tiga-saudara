@@ -18,7 +18,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+    <div class="min-h-screen bg-neutral-100">
         <livewire:layout.navigation />
 
         <!-- Page Content -->
@@ -26,6 +26,16 @@
             {{ $slot }}
         </main>
     </div>
+
+    <footer class="bg-white shadow-sm mt-auto">
+        <x-container class="text-center py-4">
+            <div class="text-sm text-neutral-500">
+                &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+            </div>
+        </x-container>
+    </footer>
+
+    @stack('scripts')
 </body>
 
 </html>

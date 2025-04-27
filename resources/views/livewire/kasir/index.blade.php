@@ -1,4 +1,7 @@
 <div x-data="{ mobileCartOpen: false }">
+
+    @include('components.alert')
+    
     <div class="mb-6 p-4 bg-white rounded-xl shadow-lg shadow-neutral-200/80 border border-neutral-200">
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="col-span-2">
