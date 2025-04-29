@@ -149,7 +149,7 @@
         </form>
     </x-modal>
 
-    <x-modal name="confirm-category-deletion" focusable>
+    <x-modal name="confirm-category-deletion" align="center" maxWidth="md">
         <div class="p-6">
             <h2 class="text-lg font-medium text-neutral-900">
                 Hapus Kategori
