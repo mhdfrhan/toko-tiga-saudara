@@ -40,7 +40,7 @@ class Penjualan extends Component
 
         try {
             $data = ModelsPenjualan::query()
-                ->with(['detail.produk']) // Load relasi yang dibutuhkan
+                ->with(['detail.produk']) 
                 ->whereBetween('tanggal', [
                     $this->form['tanggal_awal'],
                     $this->form['tanggal_akhir']

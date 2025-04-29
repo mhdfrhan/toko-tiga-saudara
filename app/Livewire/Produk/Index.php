@@ -28,7 +28,7 @@ class Index extends Component
     public $temporaryImage;
 
     #[Rule([
-        'temporaryImage' => 'nullable|image|max:2048', // Validasi pindah ke temporaryImage
+        'temporaryImage' => 'nullable|image|max:2048', 
         'form.kode_barang' => 'required|string',
         'form.nama' => 'required|string|max:255',
         'form.kategori_id' => 'required|exists:kategori,id',
@@ -83,7 +83,6 @@ class Index extends Component
         $this->resetPage();
     }
 
-    // Add this method to generate product code
     public function generateProductCode(): string
     {
         $prefix = 'PD';
@@ -163,7 +162,7 @@ class Index extends Component
                 if ($this->temporaryImage && $product->gambar) {
                     Storage::disk('public')->delete($product->gambar);
                 } elseif (!$this->temporaryImage) {
-                    $data['gambar'] = $product->gambar; // Pertahankan gambar lama jika tidak ada upload baru
+                    $data['gambar'] = $product->gambar;
                 }
 
                 $product->update($data);

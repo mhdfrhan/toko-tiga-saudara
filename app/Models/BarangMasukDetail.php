@@ -19,3 +19,4 @@ class BarangMasukDetail extends Model
         return $this->belongsTo(BarangMasuk::class);
     }
 }
+

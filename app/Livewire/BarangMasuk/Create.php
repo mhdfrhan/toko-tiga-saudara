@@ -140,7 +140,6 @@ class Create extends Component
         try {
             DB::beginTransaction();
 
-            // Create barang masuk
             $barangMasuk = BarangMasuk::create([
                 'nomor' => $this->form['nomor'],
                 'tanggal' => $this->form['tanggal'],
@@ -150,7 +149,6 @@ class Create extends Component
                 'total' => collect($this->items)->sum('subtotal')
             ]);
 
-            // Process items
             foreach ($this->items as $item) {
                 $detail = $barangMasuk->detail()->create([
                     'produk_id' => $item['product_id'],
@@ -159,12 +157,10 @@ class Create extends Component
                     'subtotal' => $item['subtotal']
                 ]);
 
-                // Update stock
                 $product = Produk::find($item['product_id']);
                 $product->increment('stok', $item['jumlah']);
             }
 
-            // Update or create supplier report for current month
             $startDate = Carbon::parse($this->form['tanggal'])->startOfMonth();
             $endDate = Carbon::parse($this->form['tanggal'])->endOfMonth();
 
